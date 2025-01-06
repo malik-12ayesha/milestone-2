@@ -3,12 +3,11 @@ import Image from "next/image";
 import React, { useEffect, useRef } from "react";
 import Typed from "typed.js";
 
-const Main = () => {
-  const typedElement = useRef(null); // Ref for the target element
-  const typedInstance = useRef(null); // Ref to store the Typed instance
+const Main: React.FC = () => {
+  const typedElement = useRef<HTMLDivElement>(null); // Ref for the target element
+  const typedInstance = useRef<Typed | null>(null); // Ref to store the Typed instance
 
   useEffect(() => {
-    // Check if the element exists
     if (typedElement.current) {
       // Initialize Typed.js
       typedInstance.current = new Typed(typedElement.current, {
@@ -19,17 +18,16 @@ const Main = () => {
       });
     }
 
-    // Cleanup function
     return () => {
+      // Cleanup function
       if (typedInstance.current) {
-        typedInstance.current.destroy(); // Destroy only if initialized
-        typedInstance.current = null; // Reset the ref
+        typedInstance.current.destroy(); // Destroy Typed instance
+        typedInstance.current = null;
       }
     };
   }, []);
 
   const handleResumeDownload = () => {
-    // Trigger file download
     const link = document.createElement("a");
     link.href = "/resume.pdf"; // Path to the resume file
     link.download = "Ayesha_Resume.pdf"; // Suggested file name
@@ -46,13 +44,11 @@ const Main = () => {
         <div className="leftsection">
           <div>
             <div>
-              Hi, My name is
-              <span className="purple">Ayesha.</span>
+              Hi, My name is <span className="purple">Ayesha.</span>
             </div>
             <div>I am a passionate</div>
           </div>
-          <div className="typed-text" ref={typedElement}></div>{" "}
-          {/* Target for Typed.js */}
+          <div className="typed-text" ref={typedElement}></div> {/* Target for Typed.js */}
           <div className="buttons">
             <button className="btn" onClick={handleResumeDownload}>
               Download Resume
@@ -109,7 +105,6 @@ const Main = () => {
               clean, user-friendly, and mobile-responsive interface.
             </div>
           </div>
-          
           {/* Repeat Work Experience Divs */}
         </div>
       </section>
